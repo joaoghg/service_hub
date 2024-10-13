@@ -31,6 +31,7 @@ export default function Router(){
     return (
         <View 
             style={{
+                flex: 1,
                 paddingTop: insets.top,
                 paddingBottom: insets.bottom,
                 paddingRight: insets.right,
