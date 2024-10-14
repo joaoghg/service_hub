@@ -61,7 +61,7 @@ export function AuthProvider({ children }) {
                 cellphone: celular
             }
 
-            const response = await api.post('/signup', dados)
+            await api.post('/signup', dados)
 
             setLoading(false)
             setAuth(true)
@@ -82,7 +82,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, signIn, signOut, signUp }}>
+        <AuthContext.Provider value={{ auth, setAuth, signIn, signOut, signUp, loading }}>
             {children}
         </AuthContext.Provider>
     )
