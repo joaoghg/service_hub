@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import colors from '../utils/Colors'
@@ -84,6 +84,13 @@ export default function Login() {
                     <Text>Fazer login com google</Text>
                 </View>
             </TouchableOpacity>
+
+            <View style={{ flexDirection: 'row', marginTop: 20, gap: 5 }}>
+                <Text>Não possui conta?</Text>
+                <Pressable>
+                    <Text style={{ fontWeight: 'bold' }}>Cadastre-se</Text>
+                </Pressable>
+            </View>
         </View>
     )
 }
@@ -138,9 +145,9 @@ const styles = StyleSheet.create({
     btnGoogle: {
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: '#AAA',
         width: '90%',
         marginTop: 20,
+        borderColor: colors.GRAYINPUT
     },
     logoGoogle: {
         width: 30,
