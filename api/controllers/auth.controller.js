@@ -89,12 +89,12 @@ const signInUser = async (req, res) => {
 
         const user = await db('users').where('email', email).first()
         if (!user) {
-            return res.status(401).json('Email ou senha incorretos')
+            return res.status(401).json({ message: 'Email ou senha incorretos' })
         }
 
         const passwordValid = await bcrypt.compare(password, user.password)
         if (!passwordValid) {
-            return res.status(401).json('Email ou senha incorretos')
+            return res.status(401).json({ message: 'Email ou senha incorretos' })
         }
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {

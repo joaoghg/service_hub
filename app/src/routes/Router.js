@@ -22,7 +22,7 @@ export default function Router(){
     }
 
     const verifyToken = async () => {
-        const token =  await AsyncStorage.getItem('authToken')
+        const token =  await AsyncStorage.getItem('accessToken')
 
         if(token === null){
             setAuth(false)

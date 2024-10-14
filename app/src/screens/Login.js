@@ -1,13 +1,16 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable, Alert } from 'react-native'
+import React, { useState, useContext } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import colors from '../utils/Colors'
 import { TextInput } from '@react-native-material/core'
 import Feather from '@expo/vector-icons/Feather';
+import { AuthContext } from '../contexts/AuthContext'
 
 export default function Login({ navigation }) {
 
     const insets = useSafeAreaInsets()
+
+    const { signIn } = useContext(AuthContext)
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -17,7 +20,7 @@ export default function Login({ navigation }) {
     const [validaSenha, setValidaSenha] = useState(false)
     const [msgValidaSenha, setMsgValidaSenha] = useState('Informe a senha')
 
-    const handleLogin = () => {
+    const validaLogin = () => {
         let erro = 0
 
         if(email === ''){
@@ -41,6 +44,12 @@ export default function Login({ navigation }) {
         else{
             setValidaSenha(false)
         }
+
+        if(erro > 0){
+            return false
+        }
+
+        signIn(email, senha)
     }
 
     return (
@@ -68,6 +77,8 @@ export default function Login({ navigation }) {
                         onChangeText={setEmail}
                         color={colors.PRIMARY}
                         leading={() => <Feather name="mail" size={20} color={colors.PRIMARY} />}
+                        autoCapitalize='none'
+                        inputMode='email'
                     />
                     {validaEmail && <Text style={styles.textErro}>Informe o email</Text>}
                 </View>
@@ -87,6 +98,7 @@ export default function Login({ navigation }) {
                             <Feather name="eye-off" size={24} color={colors.PRIMARY} onPress={() => setVerSenha(!verSenha)} /> 
                         }}
                         secureTextEntry={!verSenha}
+                        autoCapitalize='none'
                     />
                     {validaSenha && <Text style={styles.textErro}>{msgValidaSenha}</Text>}
                 </View>
@@ -95,7 +107,7 @@ export default function Login({ navigation }) {
             <TouchableOpacity
                 style={styles.btnEntrar}
                 activeOpacity={0.8}
-                onPress={handleLogin}
+                onPress={validaLogin}
             >
                 <Text style={{ color: colors.SECONDARY, fontWeight: 'bold', fontSize: 16 }}>Entrar</Text>
             </TouchableOpacity>
