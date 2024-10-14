@@ -23,11 +23,17 @@ export function AuthProvider({ children }) {
             }
 
             const response = await api.post('/signin', dados)
-            api.defaults.headers.common['Authorization'] = response.data.accessToken
-            await AsyncStorage.setItem('accessToken', response.data.accessToken)
 
+            if(response.data.verified){
+                api.defaults.headers.common['Authorization'] = response.data.accessToken
+                await AsyncStorage.setItem('accessToken', response.data.accessToken)
+                setAuth(true)
+            }
+            else{
+                setAuth(false)
+                navigation.navigate('VerifyEmail', { email: response.data.email, verificationToken: response.data.verificationToken })
+            }
             setLoading(false)
-            setAuth(true)
         }catch(erro){
             setLoading(false)
             if(erro.response){

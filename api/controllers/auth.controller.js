@@ -108,6 +108,8 @@ const signInUser = async (req, res) => {
             name: user.name,
             email: user.email,
             accessToken: token,
+            verificationToken: user.verificationToken,
+            verified: user.verified
         })
     } catch (err) {
         return res.status(500).send({ message: 'Não foi possível fazer login' });
