@@ -203,7 +203,7 @@ export default function Register({ navigation }) {
                         <TextInput 
                             style={styles.input}
                             variant='outlined'
-                            label={'Documento'}
+                            label={'CPF ou CNPJ'}
                             value={documento}
                             onChangeText={handleDocumento}
                             color={colors.PRIMARY}
