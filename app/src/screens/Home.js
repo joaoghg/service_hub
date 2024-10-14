@@ -1,12 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { AuthContext } from '../contexts/AuthContext'
 
 export default function Home() {
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  )
+
+    const { signOut } = useContext(AuthContext)
+
+    return (
+        <View>
+            <Text>Home</Text>
+            <Pressable
+                style={{
+                    padding: 15
+                }}
+                onPress={signOut}
+            >
+                <Text>Sair</Text>
+            </Pressable>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({})

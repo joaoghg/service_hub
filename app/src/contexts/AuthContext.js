@@ -79,8 +79,8 @@ export function AuthProvider({ children }) {
         }
     }
 
-    const signOut = () => {
-        AsyncStorage.removeItem('accessToken')
+    const signOut = async () => {
+        await AsyncStorage.removeItem('accessToken')
         setAuth(false)
     }
 
