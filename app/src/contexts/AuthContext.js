@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
         try{
             setLoading(true)
 
-            const {nome, documento, celular, email, senha} = parametros
+            const {nome, documento, celular, email, senha, type} = parametros
 
             let cpf, cnpj 
             if(documento.length === 11){
@@ -61,7 +61,8 @@ export function AuthProvider({ children }) {
                 cnpj,
                 email,
                 password: senha,
-                cellphone: celular
+                cellphone: celular,
+                type
             }
 
             await api.post('/signup', dados)

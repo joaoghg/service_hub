@@ -9,11 +9,13 @@ import { cpf, cnpj } from 'cpf-cnpj-validator'
 import { AuthContext } from '../contexts/AuthContext'
 import Loader from '../components/loaders/Loader'
 
-export default function Register({ navigation }) {
+export default function Register({ navigation, route }) {
 
     const { signUp, loading } = useContext(AuthContext)
 
     const insets = useSafeAreaInsets()
+
+    const type = route.params.type //P - prestador; C - cliente
 
     //Estados dos inputs
     const [email, setEmail] = useState('')
@@ -175,7 +177,8 @@ export default function Register({ navigation }) {
             documento: documento.replace(/\D/g, ''),
             celular,
             email, 
-            senha
+            senha,
+            type
         }
 
         signUp(parametros)

@@ -138,7 +138,7 @@ export default function Login({ navigation }) {
             <View style={{ flexDirection: 'row', marginTop: 20, gap: 5 }}>
                 <Text>Não possui conta?</Text>
                 <Pressable
-                    onPress={() => navigation.navigate('Register')}
+                    onPress={() => navigation.navigate('RegisterType')}
                 >
                     <Text style={{ fontWeight: 'bold' }}>Cadastre-se</Text>
                 </Pressable>
