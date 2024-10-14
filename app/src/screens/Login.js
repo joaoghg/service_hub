@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     logo: {
         width: '20%',
         height: '10%',
-        marginTop: 80
+        marginTop: 50
     },
     textEntrar: {
         marginTop: 10,
