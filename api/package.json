@@ -1,0 +1,19 @@
+{
+  "name": "service_hub",
+  "version": "1.0.0",
+  "description": "Api para o aplicativo ServiceHub, projeto de iniciação científica para a universidade Unisagrado",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joao Garnica",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.37.4"
+  }
+}

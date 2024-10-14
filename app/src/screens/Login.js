@@ -13,6 +13,36 @@ export default function Login({ navigation }) {
     const [senha, setSenha] = useState('')
     const [verSenha, setVerSenha] = useState(false)
 
+    const [validaEmail, setValidaEmail] = useState(false)
+    const [validaSenha, setValidaSenha] = useState(false)
+    const [msgValidaSenha, setMsgValidaSenha] = useState('Informe a senha')
+
+    const handleLogin = () => {
+        let erro = 0
+
+        if(email === ''){
+            setValidaEmail(true)
+            erro++
+        }
+        else{
+            setValidaEmail(false)
+        }
+
+        if(senha === ''){
+            setMsgValidaSenha('Informe a senha')
+            setValidaSenha(true)
+            erro++
+        }
+        else if(senha.length < 8){
+            setMsgValidaSenha('A senha deve conter ao menos 8 caracteres')
+            setValidaSenha(true)
+            erro++
+        }
+        else{
+            setValidaSenha(false)
+        }
+    }
+
     return (
         <View
             style={[styles.container, {
@@ -29,36 +59,43 @@ export default function Login({ navigation }) {
 
             <View style={styles.inputsContainer}>
 
-                <TextInput 
-                    style={styles.input}
-                    variant='outlined'
-                    label={'Email'}
-                    value={email}
-                    onChangeText={setEmail}
-                    color={colors.PRIMARY}
-                    leading={() => <Feather name="mail" size={20} color={colors.PRIMARY} />}
-                />
+                <View style={styles.inputContainer}>
+                    <TextInput 
+                        style={styles.input}
+                        variant='outlined'
+                        label={'Email'}
+                        value={email}
+                        onChangeText={setEmail}
+                        color={colors.PRIMARY}
+                        leading={() => <Feather name="mail" size={20} color={colors.PRIMARY} />}
+                    />
+                    {validaEmail && <Text style={styles.textErro}>Informe o email</Text>}
+                </View>
 
-                <TextInput 
-                    style={styles.input}
-                    variant='outlined'
-                    label={'Senha'}
-                    value={senha}
-                    onChangeText={setSenha}
-                    color={colors.PRIMARY}
-                    leading={() => <Feather name="unlock" size={20} color={colors.PRIMARY} />}
-                    trailing={() => {
-                        return verSenha ? 
-                        <Feather name="eye" size={24} color={colors.PRIMARY} onPress={() => setVerSenha(!verSenha)} /> :
-                        <Feather name="eye-off" size={24} color={colors.PRIMARY} onPress={() => setVerSenha(!verSenha)} /> 
-                    }}
-                    secureTextEntry={!verSenha}
-                />
+                <View style={styles.inputContainer}>
+                    <TextInput 
+                        style={styles.input}
+                        variant='outlined'
+                        label={'Senha'}
+                        value={senha}
+                        onChangeText={setSenha}
+                        color={colors.PRIMARY}
+                        leading={() => <Feather name="unlock" size={20} color={colors.PRIMARY} />}
+                        trailing={() => {
+                            return verSenha ? 
+                            <Feather name="eye" size={24} color={colors.PRIMARY} onPress={() => setVerSenha(!verSenha)} /> :
+                            <Feather name="eye-off" size={24} color={colors.PRIMARY} onPress={() => setVerSenha(!verSenha)} /> 
+                        }}
+                        secureTextEntry={!verSenha}
+                    />
+                    {validaSenha && <Text style={styles.textErro}>{msgValidaSenha}</Text>}
+                </View>
             </View>
 
             <TouchableOpacity
                 style={styles.btnEntrar}
                 activeOpacity={0.8}
+                onPress={handleLogin}
             >
                 <Text style={{ color: colors.SECONDARY, fontWeight: 'bold', fontSize: 16 }}>Entrar</Text>
             </TouchableOpacity>
@@ -121,7 +158,8 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '90%',
-        backgroundColor: colors.WHITE
+        backgroundColor: colors.WHITE,
+        borderColor: 'red',
     },
     btnEntrar: {
         backgroundColor: colors.PRIMARY,
@@ -155,5 +193,14 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         marginVertical: 10
+    },
+    textErro: {
+        color: 'red',
+        alignSelf: 'flex-start',
+        marginLeft: '5%'
+    },
+    inputContainer: {
+        width: '100%',
+        alignItems: 'center'
     }
 })
