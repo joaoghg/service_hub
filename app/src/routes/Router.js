@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Loading from '../screens/Loading'
-import { NavigationContainer } from '@react-navigation/native'
 import AuthStack from './AuthStack'
 import AppStack from './AppStack'
 import { AuthContext } from '../contexts/AuthContext'
@@ -36,9 +35,5 @@ export default function Router(){
         setTimeout(verifyToken, 2000)
     }, [])
 
-    return (
-        <NavigationContainer>
-            {screen}
-        </NavigationContainer>
-    )
+    return screen
 }

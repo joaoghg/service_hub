@@ -2,10 +2,13 @@ import { createContext, useState } from "react";
 import { Alert } from "react-native";
 import api from "../../config/axiosConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 export const AuthContext = createContext({})
 
 export function AuthProvider({ children }) {
+
+    const navigation = useNavigation()
 
     const [auth, setAuth] = useState('')
     const [loading, setLoading] = useState(false)
@@ -64,7 +67,7 @@ export function AuthProvider({ children }) {
             await api.post('/signup', dados)
 
             setLoading(false)
-            setAuth(true)
+            navigation.popToTop()
         }catch(erro){
             setLoading(false)
             if(erro.response){

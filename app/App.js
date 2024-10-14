@@ -4,18 +4,21 @@ import Router from './src/routes/Router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PaperProvider } from 'react-native-paper';
 import { AuthProvider } from './src/contexts/AuthContext';
+import { NavigationContainer } from '@react-navigation/native'
 
 export default function App() {
 
     return (
-        <AuthProvider>
-            <SafeAreaProvider>
-                <PaperProvider>
-                    <StatusBar style='auto' />
-                    <Router />
-                </PaperProvider>
-            </SafeAreaProvider>
-        </AuthProvider>
+        <NavigationContainer>
+            <AuthProvider>
+                <SafeAreaProvider>
+                    <PaperProvider>
+                        <StatusBar style='auto' />
+                        <Router />
+                    </PaperProvider>
+                </SafeAreaProvider>
+            </AuthProvider>
+        </NavigationContainer>
     );
 
 }

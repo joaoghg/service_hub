@@ -7,10 +7,11 @@ import Feather from '@expo/vector-icons/Feather';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { cpf, cnpj } from 'cpf-cnpj-validator'
 import { AuthContext } from '../contexts/AuthContext'
+import Loader from '../components/loaders/Loader'
 
 export default function Register({ navigation }) {
 
-    const { signUp } = useContext(AuthContext)
+    const { signUp, loading } = useContext(AuthContext)
 
     const insets = useSafeAreaInsets()
 
@@ -315,6 +316,8 @@ export default function Register({ navigation }) {
                     </Pressable>
                 </View>
             </ScrollView>
+
+            <Loader loading={loading} />
         </View>
     )
 }

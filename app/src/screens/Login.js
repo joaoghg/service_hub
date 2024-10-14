@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable, Alert } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable, Modal } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import colors from '../utils/Colors'
 import { TextInput } from '@react-native-material/core'
 import Feather from '@expo/vector-icons/Feather';
 import { AuthContext } from '../contexts/AuthContext'
+import Loader from '../components/loaders/Loader'
 
 export default function Login({ navigation }) {
 
     const insets = useSafeAreaInsets()
 
-    const { signIn } = useContext(AuthContext)
+    const { signIn, loading } = useContext(AuthContext)
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -142,6 +143,8 @@ export default function Login({ navigation }) {
                     <Text style={{ fontWeight: 'bold' }}>Cadastre-se</Text>
                 </Pressable>
             </View>
+
+            <Loader loading={loading} />
         </View>
     )
 }
