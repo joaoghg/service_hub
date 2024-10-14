@@ -5,7 +5,7 @@ import colors from '../utils/Colors'
 import { TextInput } from '@react-native-material/core'
 import Feather from '@expo/vector-icons/Feather';
 
-export default function Login() {
+export default function Login({ navigation }) {
 
     const insets = useSafeAreaInsets()
 
@@ -87,7 +87,9 @@ export default function Login() {
 
             <View style={{ flexDirection: 'row', marginTop: 20, gap: 5 }}>
                 <Text>Não possui conta?</Text>
-                <Pressable>
+                <Pressable
+                    onPress={() => navigation.navigate('Register')}
+                >
                     <Text style={{ fontWeight: 'bold' }}>Cadastre-se</Text>
                 </Pressable>
             </View>
