@@ -1,6 +1,6 @@
 export default {
     PRIMARY: '#000000',
-    SECONDATY: '#FFFFFF',
+    SECONDARY: '#FFFFFF',
     BLACK: '#000000',
     WHITE: '#FFFFFF'
 }

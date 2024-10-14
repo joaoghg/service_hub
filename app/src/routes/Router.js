@@ -1,6 +1,4 @@
-import { View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Loading from '../screens/Loading'
 import { NavigationContainer } from '@react-navigation/native'
@@ -9,43 +7,26 @@ import AppStack from './AppStack'
 
 export default function Router(){
 
-    const insets = useSafeAreaInsets()
     const [screen, setScreen] = useState(<Loading />)
     
     const verifyToken = async () => {
         const token =  await AsyncStorage.getItem('authToken')
 
         if(token === null){
-            setTimeout(() => {
-                setScreen(<AuthStack />)
-            }, 2000)
+            setScreen(<AuthStack />)
         }
         else{
-            setTimeout(() => {
-                setScreen(<AppStack />)
-            }, 2000)
+            setScreen(<AppStack />)
         }
     }
 
     useEffect(() => {
-
-        verifyToken()
-
+        setTimeout(verifyToken, 2000)
     }, [])
 
     return (
-        <View 
-            style={{
-                flex: 1,
-                paddingTop: insets.top,
-                paddingBottom: insets.bottom,
-                paddingRight: insets.right,
-                paddingLeft: insets.left
-            }}
-        >
-            <NavigationContainer>
-                {screen}
-            </NavigationContainer>
-        </View>
+        <NavigationContainer>
+            {screen}
+        </NavigationContainer>
     )
 }
