@@ -68,7 +68,7 @@ export function AuthProvider({ children }) {
             await api.post('/signup', dados)
 
             setLoading(false)
-            navigation.navigate('Login')
+            navigation.navigate('VerifyEmail', { email })
         }catch(erro){
             setLoading(false)
             if(erro.response){
