@@ -10,7 +10,7 @@ import { AuthContext } from '../contexts/AuthContext'
 
 export default function Register({ navigation }) {
 
-    const { setAuth } = useContext(AuthContext)
+    const { signUp } = useContext(AuthContext)
 
     const insets = useSafeAreaInsets()
 
@@ -164,7 +164,20 @@ export default function Register({ navigation }) {
         else{
             setValidaConfirmSenha(false)
         }
-        
+
+        if(erro > 0){
+            return false
+        }
+
+        parametros = {
+            nome,
+            documento: documento.replace(/\D/g, ''),
+            celular,
+            email, 
+            senha
+        }
+
+        signUp(parametros)
     }
 
     return (

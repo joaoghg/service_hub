@@ -8,9 +8,12 @@ export const AuthContext = createContext({})
 export function AuthProvider({ children }) {
 
     const [auth, setAuth] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const signIn = async (email, senha) => {
         try{
+            setLoading(true)
+
             dados = {
                 email,
                 password: senha
@@ -20,13 +23,55 @@ export function AuthProvider({ children }) {
             api.defaults.headers.common['Authorization'] = response.data.accessToken
             await AsyncStorage.setItem('accessToken', response.data.accessToken)
 
+            setLoading(false)
             setAuth(true)
         }catch(erro){
+            setLoading(false)
             if(erro.response){
                 Alert.alert('Atenção', erro.response.data.message)
             }
             else{
                 Alert.alert('Erro', 'Não foi possível fazer login')
+            }
+        }
+    }
+
+    const signUp = async (parametros) => {
+        try{
+            setLoading(true)
+
+            const {nome, documento, celular, email, senha} = parametros
+
+            let cpf, cnpj 
+            if(documento.length === 11){
+                cpf = documento
+                cnpj = null
+            }
+            else{
+                cpf = null
+                cnpj = documento
+            }
+
+            const dados = {
+                name: nome,
+                cpf,
+                cnpj,
+                email,
+                password: senha,
+                cellphone: celular
+            }
+
+            const response = await api.post('/signup', dados)
+
+            setLoading(false)
+            setAuth(true)
+        }catch(erro){
+            setLoading(false)
+            if(erro.response){
+                Alert.alert('Atenção', erro.response.data.message)
+            }
+            else{
+                Alert.alert('Erro', 'Não foi possível fazer o cadastro')
             }
         }
     }
@@ -37,7 +82,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, signIn, signOut }}>
+        <AuthContext.Provider value={{ auth, setAuth, signIn, signOut, signUp }}>
             {children}
         </AuthContext.Provider>
     )

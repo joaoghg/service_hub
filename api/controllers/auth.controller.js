@@ -50,12 +50,14 @@ const registerUser = async (req, res) => {
             cellphone: cellphone,
             cpf: cpf,
             cnpj: cnpj,
-            verificationToken: verificationToken
+            verificationToken: verificationToken,
+            type: 1
         });
 
         sendVerificationEmail(email, verificationToken)
         return res.status(201).send({ message: 'Cadastro concluído' });
     } catch (err) {
+        console.log(err)
         return res.status(500).send({ message: 'Erro ao cadastrar usuário' });
     }
 }
