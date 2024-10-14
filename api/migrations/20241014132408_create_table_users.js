@@ -12,7 +12,7 @@ exports.up = function(knex) {
     table.string('cellphone').notNullable()
     table.string('cpf')
     table.string('cnpj')
-    table.boolean('verified')
+    table.boolean('verified').notNullable().defaultTo(false)
     table.string('verificationToken')
     table.dateTime('createdAt').defaultTo(knex.fn.now())
   })

@@ -3,7 +3,7 @@ require('dotenv').config()
 
 // Middleware de autenticação
 function authMiddleware(req, res, next) {
-    const token = req.headers['authorization']
+    const token = req.headers['Authorization']
 
     if (!token) {
         return res.status(401).json({ message: 'Acesso negado. Token não fornecido.' })

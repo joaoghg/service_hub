@@ -67,7 +67,7 @@ export function AuthProvider({ children }) {
             await api.post('/signup', dados)
 
             setLoading(false)
-            navigation.popToTop()
+            navigation.navigate('Login')
         }catch(erro){
             setLoading(false)
             if(erro.response){
@@ -84,8 +84,12 @@ export function AuthProvider({ children }) {
         setAuth(false)
     }
 
+    const verifyToken = async () => {
+        
+    }
+
     return (
-        <AuthContext.Provider value={{ auth, setAuth, signIn, signOut, signUp, loading }}>
+        <AuthContext.Provider value={{ auth, setAuth, signIn, signOut, signUp, loading, verifyToken }}>
             {children}
         </AuthContext.Provider>
     )

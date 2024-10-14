@@ -11,10 +11,12 @@ const port = process.env.PORT
 const app = express()
 
 const authRoute = require('./routes/auth.route')
+const userRoute = require('./routes/user.route')
 
 app.use(express.json())
 app.use(cors())
 app.use('/api', authRoute)
+app.use('/api', userRoute)
 
 app.listen(port, erro => {
     if (erro) {

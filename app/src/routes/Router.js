@@ -4,6 +4,7 @@ import Loading from '../screens/Loading'
 import AuthStack from './AuthStack'
 import AppStack from './AppStack'
 import { AuthContext } from '../contexts/AuthContext'
+import api from '../../config/axiosConfig'
 
 export default function Router(){
 
@@ -27,7 +28,18 @@ export default function Router(){
             setAuth(false)
         }
         else{
-            setAuth(true)
+            try{
+                await api.get('/verifytoken', {
+                    // headers: {
+                    //     Authorization: `Bearer ${token}`
+                    // }
+                })
+                
+                api.defaults.headers.common['Authorization'] = response.data.accessToken
+                setAuth(true)
+            }catch(error){
+                setAuth(false)
+            }
         }
     }
 
