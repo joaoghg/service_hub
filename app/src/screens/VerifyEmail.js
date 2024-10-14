@@ -1,17 +1,35 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native'
+import React, { useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import colors from '../utils/Colors'
 import * as Animatable from 'react-native-animatable';
+import api from '../../config/axiosConfig';
+import Loader from '../components/loaders/Loader';
 
 export default function VerifyEmail({ navigation, route }) {
 
     const insets = useSafeAreaInsets()
 
-    const email = route.params?.email
+    const [loading, setLoading] = useState(false)
+
+    const email = route.params.email
+    const verificationToken = route.params.verificationToken
 
     const sendEmail = async () => {
+        try{
+            setLoading(true)
 
+            const data = {
+                email,
+                verificationToken
+            }
+
+            await api.post('/resend-email', data)
+            setLoading(false)
+        }catch(error){
+            setLoading(false)
+            Alert.alert('Erro', 'Não foi possível reenviar o email')
+        }
     }
 
     return (
@@ -40,6 +58,8 @@ export default function VerifyEmail({ navigation, route }) {
                     <Text style={{ color: colors.SECONDARY, fontWeight: 'bold', fontSize: 16 }}>Continuar</Text>
                 </TouchableOpacity>
             </Animatable.View>
+
+            <Loader loading={loading} />
         </View>
     )
 }

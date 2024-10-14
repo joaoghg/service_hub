@@ -65,10 +65,10 @@ export function AuthProvider({ children }) {
                 type
             }
 
-            await api.post('/signup', dados)
+            const response = await api.post('/signup', dados)
 
             setLoading(false)
-            navigation.navigate('VerifyEmail', { email })
+            navigation.navigate('VerifyEmail', { email, verificationToken: response.data.verificationToken })
         }catch(erro){
             setLoading(false)
             if(erro.response){

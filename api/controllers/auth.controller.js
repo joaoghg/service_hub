@@ -55,7 +55,7 @@ const registerUser = async (req, res) => {
         });
 
         sendVerificationEmail(email, verificationToken)
-        return res.status(201).send({ message: 'Cadastro concluído' });
+        return res.status(201).send({ message: 'Cadastro concluído', verificationToken });
     } catch (err) {
         console.log(err)
         return res.status(500).send({ message: 'Erro ao cadastrar usuário' });
@@ -114,8 +114,24 @@ const signInUser = async (req, res) => {
     }
 }
 
+const resendEmail = async (req, res) => {
+    try {
+        const { email, verificationToken } = req.body;
+
+        if (!email || !verificationToken) {
+            return res.status(400).send({ message: 'Parametros faltando' })
+        }
+
+        sendVerificationEmail(email, verificationToken)
+        return res.status(200).send({ message: 'Email reenviado' });
+    } catch (err) {
+        return res.status(500).send({ message: 'Não foi possível reenviar o email' });
+    }
+}
+
 module.exports = {
     registerUser,
     signInUser,
-    verifyUser
+    verifyUser,
+    resendEmail
 }
