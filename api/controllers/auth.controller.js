@@ -21,9 +21,9 @@ const registerUser = async (req, res) => {
             cpf,
             cnpj
         });
-        return res.status(200).send('Cadastro concluído');
+        return res.status(200).send({message: 'Cadastro concluído'});
     } catch (err) {
-        return res.status(500).send('Erro ao cadastrar usuário');
+        return res.status(500).send({message: 'Erro ao cadastrar usuário'});
     }
 }
 
@@ -53,7 +53,7 @@ const signInUser = async (req, res) => {
             accessToken: token,
         });
     } catch (err) {
-        return res.status(500).send('Não foi possível fazer login');
+        return res.status(500).send({message: 'Não foi possível fazer login'});
     }
 }
 
