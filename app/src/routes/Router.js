@@ -23,16 +23,16 @@ export default function Router(){
 
     const verifyToken = async () => {
         const token =  await AsyncStorage.getItem('accessToken')
-
+        
         if(token === null){
             setAuth(false)
         }
         else{
             try{
-                await api.get('/verifytoken', {
-                    // headers: {
-                    //     Authorization: `Bearer ${token}`
-                    // }
+                const response = await api.get('/verifytoken', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 })
                 
                 api.defaults.headers.common['Authorization'] = response.data.accessToken
