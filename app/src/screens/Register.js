@@ -186,7 +186,7 @@ export default function Register({ navigation, route }) {
 
     return (
         <View
-            style={{ paddingTop: insets.top, backgroundColor: colors.WHITE }}
+            style={{ paddingTop: insets.top, backgroundColor: colors.WHITE, flex: 1 }}
         >
             <ScrollView
                 style={{ width: '100%', backgroundColor: colors.WHITE }}

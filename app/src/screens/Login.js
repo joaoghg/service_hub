@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable, Modal } from 'react-native'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import colors from '../utils/Colors'
 import { TextInput } from '@react-native-material/core'
 import Feather from '@expo/vector-icons/Feather';
 import { AuthContext } from '../contexts/AuthContext'
 import Loader from '../components/loaders/Loader'
+import * as webBrowser from 'expo-web-browser'
+import * as Google from 'expo-auth-session/providers/google'
 
 export default function Login({ navigation }) {
 
@@ -52,6 +54,49 @@ export default function Login({ navigation }) {
 
         signIn(email, senha)
     }
+
+    const webClientId = process.env.WEB_CLIENT_ID
+    const androidClientId = process.env.ANDROID_CLIENT_ID
+
+    webBrowser.maybeCompleteAuthSession()
+
+    const config = {
+        webClientId,
+        androidClientId
+    }
+
+    const [request, response, promptAsync] = Google.useAuthRequest(config)
+
+    const handleToken = () => {
+        if(response?.type === 'success'){
+            const { authentication } = response
+            const token = authentication?.accessToken
+            y7YgetUserProfile(token)
+        }
+    }
+
+    const getUserProfile = async (token) => {
+        if(!token){
+            return
+        }
+
+        try{
+            const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            const user = await response.json()
+            console.log(user)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        handleToken()
+    }, [response])
 
     return (
         <View
@@ -124,6 +169,7 @@ export default function Login({ navigation }) {
             <TouchableOpacity
                 style={styles.btnGoogle}
                 activeOpacity={0.8}
+                onPress={() => promptAsync()}
             >
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center', gap: 5 }}>
                     <Image 
