@@ -1,13 +1,17 @@
 import React from 'react';
 import { View, Modal, ActivityIndicator, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
-const Loader = ({ loading }) => (
-    <Modal transparent={true} animationType="none" visible={loading}>
-        <View style={styles.modalBackground}>
-            <ActivityIndicator animating={loading} size={30} color={'#FFF'} />
-        </View>
-    </Modal>
-);
+export default function Loader({ loading }) {
+    return (
+        <Modal transparent={true} animationType="none" visible={loading}>
+            <StatusBar backgroundColor='rgba(0,0,0,0.5)' />
+            <View style={styles.modalBackground}>
+                <ActivityIndicator animating={loading} size={30} color={'#FFF'} />
+            </View>
+        </Modal>
+    )
+}
 
 const styles = StyleSheet.create({
     modalBackground: {
@@ -18,5 +22,3 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)',
     }
 });
-
-export default Loader;
