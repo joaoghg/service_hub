@@ -6,8 +6,7 @@ import { TextInput } from '@react-native-material/core'
 import Feather from '@expo/vector-icons/Feather';
 import { AuthContext } from '../contexts/AuthContext'
 import Loader from '../components/loaders/Loader'
-import * as webBrowser from 'expo-web-browser'
-import * as Google from 'expo-auth-session/providers/google'
+import GoogleAuth from '../components/auth/GoogleAuth'
 
 export default function Login({ navigation }) {
 
@@ -54,49 +53,6 @@ export default function Login({ navigation }) {
 
         signIn(email, senha)
     }
-
-    const webClientId = process.env.WEB_CLIENT_ID
-    const androidClientId = process.env.ANDROID_CLIENT_ID
-
-    webBrowser.maybeCompleteAuthSession()
-
-    const config = {
-        webClientId,
-        androidClientId
-    }
-
-    const [request, response, promptAsync] = Google.useAuthRequest(config)
-
-    const handleToken = () => {
-        if(response?.type === 'success'){
-            const { authentication } = response
-            const token = authentication?.accessToken
-            y7YgetUserProfile(token)
-        }
-    }
-
-    const getUserProfile = async (token) => {
-        if(!token){
-            return
-        }
-
-        try{
-            const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-
-            const user = await response.json()
-            console.log(user)
-        }catch(err){
-            console.log(err)
-        }
-    }
-
-    useEffect(() => {
-        handleToken()
-    }, [response])
 
     return (
         <View
@@ -166,20 +122,7 @@ export default function Login({ navigation }) {
                 <Text style={styles.divider} />
             </View>
 
-            <TouchableOpacity
-                style={styles.btnGoogle}
-                activeOpacity={0.8}
-                onPress={() => promptAsync()}
-            >
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center', gap: 5 }}>
-                    <Image 
-                        source={require('../../assets/images/logo_google.png')}
-                        resizeMode='contain'
-                        style={styles.logoGoogle}
-                    />
-                    <Text>Fazer login com google</Text>
-                </View>
-            </TouchableOpacity>
+            <GoogleAuth />
 
             <View style={{ flexDirection: 'row', marginTop: 20, gap: 5 }}>
                 <Text>Não possui conta?</Text>
@@ -242,18 +185,6 @@ const styles = StyleSheet.create({
         borderColor: '#CCC',
         borderBottomWidth: 1,
         height: 0.5
-    },
-    btnGoogle: {
-        borderRadius: 8,
-        borderWidth: 1,
-        width: '90%',
-        marginTop: 20,
-        borderColor: colors.GRAYINPUT
-    },
-    logoGoogle: {
-        width: 30,
-        height: 30,
-        marginVertical: 10
     },
     textErro: {
         color: 'red',
