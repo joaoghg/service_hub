@@ -1,12 +1,18 @@
 const express = require('express')
 const cors = require('cors')
 const db = require("./config/db")
+const { createUserMaster } = require('./seeders/user.seed')
 
 const dotenv = require('dotenv')
 dotenv.config()
 
+//Criando tabelas no banco
 db.migrate.latest()
+    .then(() => { //Inserindo dados iniciais
+        createUserMaster()
+    })
 
+//Iniciando api
 const port = process.env.PORT
 const app = express()
 
