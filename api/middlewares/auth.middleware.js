@@ -1,8 +1,9 @@
+const db = require('../config/db')
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 // Middleware de autenticação
-function authMiddleware(req, res, next) {
+async function authMiddleware(req, res, next) {
     const token = req.headers['authorization']
 
     if (!token) {
@@ -15,6 +16,11 @@ function authMiddleware(req, res, next) {
 
         const decoded = jwt.verify(tokenLimpo, secretKey)
         req.usuario = decoded
+
+        const user = await db('users').where('id', req.usuario.id).first()
+        if(!user){
+            throw new error()
+        }
 
         next()
     } catch (error) {
