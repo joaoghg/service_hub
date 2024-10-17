@@ -1,0 +1,64 @@
+[
+    {
+      "servico": "Limpeza residencial",
+      "imagem": "/assets/images/"
+    },
+    {
+      "servico": "Manutenção elétrica"
+    },
+    {
+      "servico": "Pintura"
+    },
+    {
+      "servico": "Encanador"
+    },
+    {
+      "servico": "Reparos em eletrônicos"
+    },
+    {
+      "servico": "Montagem de móveis"
+    },
+    {
+      "servico": "Jardinagem"
+    },
+    {
+      "servico": "Babá"
+    },
+    {
+      "servico": "Cuidado com idosos"
+    },
+    {
+      "servico": "Transporte de mudanças"
+    },
+    {
+      "servico": "Consultoria em TI"
+    },
+    {
+      "servico": "Aulas particulares"
+    },
+    {
+      "servico": "Design gráfico"
+    },
+    {
+      "servico": "Fotografia"
+    },
+    {
+      "servico": "Produção de vídeos"
+    },
+    {
+      "servico": "Desenvolvimento web"
+    },
+    {
+      "servico": "Instalação de ar condicionado"
+    },
+    {
+      "servico": "Segurança e vigilância"
+    },
+    {
+      "servico": "Consultoria financeira"
+    },
+    {
+      "servico": "Assistência técnica em computadores"
+    }
+]
+  
