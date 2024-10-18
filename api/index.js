@@ -1,7 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 const db = require("./config/db")
+const path = require('path');
 const { createUserMaster } = require('./seeders/user.seed')
+const { insertServices } = require('./seeders/services.seed')
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -10,6 +12,7 @@ dotenv.config()
 db.migrate.latest()
     .then(() => { //Inserindo dados iniciais
         createUserMaster()
+        insertServices()
     })
 
 //Iniciando api
@@ -23,6 +26,8 @@ app.use(express.json())
 app.use(cors())
 app.use('/api', authRoute)
 app.use('/api', userRoute)
+
+app.use('/images', express.static(path.join(__dirname, './resources/images')));
 
 app.listen(port, erro => {
     if (erro) {
