@@ -7,6 +7,7 @@ exports.up = function(knex) {
         table.increments('id').primary()
         table.integer('service_id').notNullable().unsigned()
         table.string('path').notNullable()
+        table.boolean('main').defaultTo(false)
         table.foreign('service_id').references('services.id')
     })
 };
