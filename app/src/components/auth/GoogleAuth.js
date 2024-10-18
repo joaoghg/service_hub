@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import colors from '../../utils/Colors'
 import * as webBrowser from 'expo-web-browser'
 import * as Google from 'expo-auth-session/providers/google'
+import logo_google from '@assets/images/logo_google.png'
 
 export default function GoogleAuth() {
 
