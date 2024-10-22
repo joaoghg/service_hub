@@ -12,6 +12,7 @@ export function AuthProvider({ children }) {
 
     const [auth, setAuth] = useState('')
     const [loading, setLoading] = useState(false)
+    const [userData, setUserData] = useState({})
 
     const signIn = async (email, senha) => {
         try{
@@ -96,7 +97,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, signIn, signOut, signUp, loading, verifyToken }}>
+        <AuthContext.Provider value={{ auth, setAuth, signIn, signOut, signUp, loading, verifyToken, userData, setUserData }}>
             {children}
         </AuthContext.Provider>
     )

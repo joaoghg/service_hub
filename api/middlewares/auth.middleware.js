@@ -15,12 +15,13 @@ async function authMiddleware(req, res, next) {
         const secretKey = process.env.JWT_SECRET
 
         const decoded = jwt.verify(tokenLimpo, secretKey)
-        req.usuario = decoded
 
-        const user = await db('users').where('id', req.usuario.id).first()
+        const user = await db('users').where('id', decoded.id).first()
         if(!user){
             throw new error()
         }
+
+        req.usuario = user
 
         next()
     } catch (error) {
