@@ -21,7 +21,7 @@ async function authMiddleware(req, res, next) {
             throw new error()
         }
 
-        req.usuario = user
+        req.user = user
 
         next()
     } catch (error) {

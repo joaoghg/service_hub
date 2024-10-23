@@ -4,7 +4,14 @@ const authMiddleware = require('../middlewares/auth.middleware')
 
 //rota para verificar validade do token
 router.get('/verifytoken', authMiddleware, (req, res) => {
-    res.sendStatus(200)
+
+    const user = req.user
+
+    res.status(200).send({
+        id: user.id,
+        name: user.name,
+        email: user.email
+    })
 });
 
 module.exports = router;
