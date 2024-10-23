@@ -13,6 +13,7 @@ const createUserMaster = async () => {
         email: 'servicehub@gmail.com',
         password: await bcrypt.hash(process.env.MASTERPASSWORD, 15),
         cellphone: '(14)99875-7948',
+        gender: 'M',
         cpf: '00000000000',
         cnpj: null,
         verificationToken: null,

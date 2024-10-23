@@ -50,7 +50,7 @@ export function AuthProvider({ children }) {
         try{
             setLoading(true)
 
-            const {nome, documento, celular, email, senha, type} = parametros
+            const {nome, documento, celular, genero, email, senha, type} = parametros
 
             let cpf, cnpj 
             if(documento.length === 11){
@@ -69,6 +69,7 @@ export function AuthProvider({ children }) {
                 email,
                 password: senha,
                 cellphone: celular,
+                gender: genero,
                 type
             }
 

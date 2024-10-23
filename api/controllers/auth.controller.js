@@ -30,9 +30,9 @@ const sendVerificationEmail = async (email, verificationToken) => {
 
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password, cellphone, cpf, cnpj, type } = req.body;
+        const { name, email, password, cellphone, gender, cpf, cnpj, type } = req.body;
 
-        if (!name || !email || !password || !cellphone || !type || (!cpf && !cnpj)) {
+        if (!name || !email || !password || !cellphone || !gender || !type || (!cpf && !cnpj)) {
             return res.status(400).send({ message: 'Parametros faltando' })
         }
 
@@ -48,6 +48,7 @@ const registerUser = async (req, res) => {
             email: email.toLowerCase(),
             password: await bcrypt.hash(password, 15),
             cellphone: cellphone,
+            gender: gender,
             cpf: cpf,
             cnpj: cnpj,
             verificationToken: verificationToken,

@@ -10,6 +10,7 @@ exports.up = function(knex) {
     table.string('email').notNullable()
     table.string('password').notNullable()
     table.string('cellphone').notNullable()
+    table.string('gender').notNullable()
     table.string('cpf')
     table.string('cnpj')
     table.boolean('verified').notNullable().defaultTo(false)

@@ -8,6 +8,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { cpf, cnpj } from 'cpf-cnpj-validator'
 import { AuthContext } from '../contexts/AuthContext'
 import Loader from '../components/loaders/Loader'
+import { Picker } from '@react-native-picker/picker';
 
 export default function Register({ navigation, route }) {
 
@@ -24,6 +25,7 @@ export default function Register({ navigation, route }) {
     const [nome, setNome] = useState('')
     const [documento, setDocumento] = useState('')
     const [celular, setCelular] = useState('')
+    const [genero, setGenero] = useState('M')
 
     //Estados da verificação de senha
     const [verSenha, setVerSenha] = useState(false)
@@ -176,6 +178,7 @@ export default function Register({ navigation, route }) {
             nome,
             documento: documento.replace(/\D/g, ''),
             celular,
+            genero,
             email, 
             senha,
             type
@@ -214,6 +217,24 @@ export default function Register({ navigation, route }) {
                             leading={() => <Feather name="user" size={20} color={colors.PRIMARY} />}
                         />
                         {validaNome && <Text style={styles.textErro}>Informe o nome</Text>}
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <View
+                            style={{ width: '90%', borderRadius: 5, borderWidth: 1, borderColor: colors.GRAYINPUT }}
+                        >
+                            <Picker
+                                selectedValue={genero}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setGenero(itemValue)
+                                }
+                                style={{ width: '100%' }}
+                            >
+                                <Picker.Item label="Masculino" value="M" />
+                                <Picker.Item label="Feminino" value="F" />
+                                <Picker.Item label="Outro" value="O" />
+                            </Picker>
+                        </View>
                     </View>
 
                     <View style={styles.inputContainer}>
